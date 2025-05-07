@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>AEVO Quiz – HF1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 900px; margin: auto; background-color: #f9f9f9; }
+    h1, h2 { color: #2c3e50; }
+    .question-block { margin-bottom: 30px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; background: white; }
+    .answers label { display: block; margin-bottom: 8px; }
+    .button { margin-top: 10px; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; }
+    .check-btn { background-color: #007bff; color: white; }
+    .shuffle-btn { background-color: #28a745; color: white; margin-bottom: 30px; }
+    @media (max-width: 600px) { body { padding: 10px; } }
+  </style>
+</head>
+<body>
+
+<h1>AEVO Quiz – Handlungsfeld 1</h1>
+<div id="questions"></div>
+<button class="button shuffle-btn" onclick="shuffleQuestions()">Mischmeister</button>
+
+<script>
+const questionsData = [
+{
+  question: "Wer ist Ausbildender im Sinne des Gesetzes?",
+  answers: [
+    "Ausbildender ist, wer im Auftrag des Ausbilders dem Lehrling Nachhilfe gibt.",
+    "Ausbildender ist, wer die Ausbildung durchführt.",
+    "Ausbildender ist, wer vom Betrieb für die Ausbildung beauftragt wird.",
+    "Ausbildender ist, wer Lehrlinge einstellt.",
+    "Ausbildender ist immer eine natürliche Person."
+  ],
+  correct: ["D"]
+},
+{
+  question: "Welche Aussagen gehören zu den pädagogischen Aufgaben des Ausbilders?",
+  answers: [
+    "Die Auszubildenden und deren berechtigte Belange innerhalb des Ausbildungsbetriebes und gegenüber der Geschäftsleitung zu vertreten.",
+    "Die Vermittlung von Fertigkeiten, Kenntnisse, Fähigkeiten und Verhaltensformen, Lehren, Erziehen, Überwachen, Beraten, Bewerten, Innovieren.",
+    "Die Zusammenarbeit mit den Eltern.",
+    "Die Meldung der offenen Ausbildungsstellen bei der Agentur für Arbeit und bei der zuständigen Innung.",
+    "Nur die Vermittlung von Fertigkeiten und Kenntnisse."
+  ],
+  correct: ["B"]
+},
+{
+  question: "Welcher der folgenden Bereiche gehört nicht zur Berufsbildung im Sinne des Berufsbildungsgesetzes?",
+  answers: [
+    "Berufsausbildungsvorbereitung",
+    "Berufsausbildung",
+    "berufliche Fortbildung",
+    "berufliche Umschulung",
+    "Hochschulzugangsregelung für berufliche Qualifizierte"
+  ],
+  correct: ["E"]
+},
+{
+  question: "Wie kann ein Betriebsinhaber das Problem lösen, wenn er selbst nicht ausbilden kann?",
+  answers: [
+    "eine Person mit bestandener Ausbildungseignungsprüfung beschäftigen.",
+    "einen Ausbilder bestellen, der persönlich und fachlich für die Ausbildung geeignet ist und die Ausbildungsinhalte unmittelbar, verantwortlich und in wesentlichem Umfang vermittelt.",
+    "einen Gesellen mit Gesellenprüfung im Betrieb mit der gesamten Ausbildung beauftragen.",
+    "einen Fachlehrer der Berufsschule mit der Überwachung der Ausbildung beauftragen.",
+    "den Lehrlingswart der Innung oder den Ausbildungsberater der Handwerkskammer mitverantwortlich in die Berufsausbildung einbeziehen."
+  ],
+  correct: ["B"]
+},
+{
+  question: "Welche Aussage zum Jugendarbeitsschutzgesetz trifft zu?",
+  answers: [
+    "Kinder sind alle Personen bis 18 Jahre.",
+    "Kinder dürfen immer dann beschäftigt werden, wenn ein Erziehungsberechtigter dies ausdrücklich erlaubt.",
+    "Eine Person, die 19 Jahre alt ist, darf in keinem Fall mehr als 38,5 Stunden in der Woche arbeiten.",
+    "Jugendliche sind Personen, die 15 Jahre, aber noch keine 18 Jahre alt sind.",
+    "Für Lehrlinge gilt unabhängig von deren Alter das Jugendarbeitsschutzgesetz nicht, da dies durch das Berufsbildungsgesetz und der Handwerksordnung ausgeschlossen ist."
+  ],
+  correct: ["D"]
+},
+{
+  question: "Worauf erstreckt sich die zentrale Überwachungsaufgabe des Ausbilders?",
+  answers: [
+    "Auf die Einhaltung von gesetzlichen Bestimmungen wie Berufsbildungsgesetz und Jugendarbeitsschutzgesetz.",
+    "Auf die Anordnung der Handwerkskammer und der Innung.",
+    "Auf die Teilnahme der Lehrlinge an überbetrieblichen Unterweisungsmaßnahmen und am Berufsschulunterricht.",
+    "Auf die Anmeldung zur Zwischenprüfung und zur Gesellenprüfung.",
+    "Auf die Einhaltung der Ziele des gesamten Ausbildungsprozesses nach Ausbildungsplan sowie Planung und Steuerung."
+  ],
+  correct: ["E"]
+},
+{
+  question: "Wer ist für die Gesetzgebung auf dem Gebiet des Schulwesens zuständig?",
+  answers: [
+    "Bund",
+    "Bundesland",
+    "Gemeindeverwaltung",
+    "Landratsamt",
+    "Europäische Kommission"
+  ],
+  correct: ["B"]
+},
+{
+  question: "Welchen Vertrag schließt man bei einer Einstiegsqualifizierung meist ab?",
+  answers: [
+    "Einen unbefristeten Arbeitsvertrag.",
+    "Einen Berufsausbildungsvertrag.",
+    "Einen Einstiegsqualifizierungsvertrag (Praktikantenvertrag).",
+    "Einen Vorvertrag zu einem Berufsausbildungsvertrag.",
+    "Einen Leiharbeitsvertrag."
+  ],
+  correct: ["C"]
+},
+{
+  question: "Wem muss ein Umschulungsvertrag vorgelegt werden?",
+  answers: [
+    "Dem Landesarbeitsministerium.",
+    "Dem Bundesarbeitsministerium.",
+    "Dem Gewerbeaufsichtsamt.",
+    "Der Handwerkskammer.",
+    "Dem örtlichen Amt für Berufsbildung."
+  ],
+  correct: ["D"]
+},
+{
+  question: "In welchem Gesetz und in welcher Verordnung sind die Einzelheiten der Ausbildung zum Kaufmann/Kauffrau für Büromanagement geregelt?",
+  answers: [
+    "In der Gewerbeordnung und deren Vollzugsverordnung.",
+    "Im Berufsschulgesetz und der Durchführungsverordnung des jeweiligen Bundeslandes.",
+    "Im Handelsgesetzbuch und den dazu ergangenen Durchführungsbestimmungen.",
+    "Im Handelsschutzgesetz des jeweiligen Bundeslandes.",
+    "Im Berufsbildungsgesetz und in der Ausbildungsordnung."
+  ],
+  correct: ["E"]
+},
+{
+  question: "Wo ist das Recht auf freie Berufswahl gesetzlich verankert?",
+  answers: [
+    "Grundgesetz",
+    "Berufsbildungsgesetz",
+    "Handwerksordnung",
+    "Jugendarbeitsschutzgesetz",
+    "Ausbildungsordnung"
+  ],
+  correct: ["A"]
+},
+{
+  question: "Welchem Verzeichnis entnimmt man die staatlich anerkannten Ausbildungsberufe?",
+  answers: [
+    "Dem Verzeichnis des Bundesinstituts für Berufsbildung.",
+    "Dem Verzeichnis der Arbeitsministerien der Länder.",
+    "Dem Verzeichnis der Kultusminister der Länder.",
+    "Dem Verzeichnis der Handwerkskammern.",
+    "Dem Verzeichnis des Bundesamtes für Berufsbildung."
+  ],
+  correct: ["A"]
+},
+{
+  question: "Welche Aufgabe hat der Berufsbildungsausschuss der Handwerkskammer?",
+  answers: [
+    "nur die Vollversammlung der Handwerkskammer zu beraten.",
+    "nur die Lehrlinge im Kammerbereich zu betreuen.",
+    "in allen wichtigen Angelegenheiten der beruflichen Bildung ein Recht darauf, angehört und unterrichtet zu werden.",
+    "die alleinige Aufsichtsfunktion über die zuständige Fachabteilung der Handwerkskammer.",
+    "die Ausbildungsbetriebe zu kontrollieren."
+  ],
+  correct: ["C"]
+},
+{
+  question: "Wie viele Mitglieder muss ein Gesellenprüfungsausschuss mindestens haben?",
+  answers: [
+    "aus mindestens 2 Mitgliedern.",
+    "aus mindestens 3 Mitgliedern.",
+    "aus mindestens 4 Mitgliedern.",
+    "aus mindestens 5 Mitgliedern.",
+    "aus mindestens 6 Mitgliedern."
+  ],
+  correct: ["B"]
+}
+];
+
+function renderQuestions() {
+  const container = document.getElementById("questions");
+  container.innerHTML = "";
+  questionsData.forEach((q, index) => {
+    const block = document.createElement("div");
+    block.className = "question-block";
+    block.dataset.correct = JSON.stringify(q.correct);
+    let html = `<p><strong>Aufgabe ${index + 1}:</strong> ${q.question}</p><div class="answers">`;
+    const letters = ["A", "B", "C", "D", "E"];
+    q.answers.forEach((answer, i) => {
+      html += `<label><input type="checkbox" value="${letters[i]}"> ${letters[i]}) ${answer}</label>`;
+    });
+    html += `</div><button class="button check-btn" onclick="checkAnswers(this.parentElement)">Antwort überprüfen</button>`;
+    block.innerHTML = html;
+    container.appendChild(block);
+  });
+}
+
+function checkAnswers(block) {
+  const answers = block.querySelectorAll("input[type=checkbox]");
+  const correct = JSON.parse(block.dataset.correct);
+  answers.forEach(a => {
+    const label = a.parentElement;
+    label.textContent = label.textContent.replace(/✅|❌/g, "").trim();
+    if (a.checked && correct.includes(a.value)) {
+      label.textContent += " ✅";
+    } else if (a.checked && !correct.includes(a.value)) {
+      label.textContent += " ❌";
+    } else if (!a.checked && correct.includes(a.value)) {
+      label.textContent += " ✅";
+    }
+  });
+}
+
+function shuffleQuestions() {
+  for (let i = questionsData.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [questionsData[i], questionsData[j]] = [questionsData[j], questionsData[i]];
+  }
+  renderQuestions();
+}
+
+renderQuestions();
+</script>
+
+</body>
+</html>
